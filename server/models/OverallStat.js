@@ -1,12 +1,32 @@
 import mongoose from "mongoose";
 
 const OverallStatSchema = new mongoose.Schema(
-    { // all of these shld have extra params such as required but for simplicity here not done
-        totalCustomers: Number,
-        year
+  {
+    totalCustomers: Number,
+    yearlySalesTotal: Number,
+    yearlyTotalSoldUnits: Number,
+    year: Number,
+    monthlyData: [
+      {
+        month: String,
+        totalSales: Number,
+        totalUnits: Number,
+      },
+    ],
+    dailyData: [
+      {
+        date: String,
+        totalSales: Number,
+        totalUnits: Number,
+      },
+    ],
+    salesByCategory: {
+      type: Map,
+      of: Number,
     },
-    {timestamps: true }
-)
+  },
+  { timestamps: true }
+);
 
-const OverallStat = mongoose.model("OverallStat", OverallStatSchemaSchema);
+const OverallStat = mongoose.model("OverallStat", OverallStatSchema);
 export default OverallStat;
